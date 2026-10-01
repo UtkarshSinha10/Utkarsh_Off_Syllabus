@@ -39,18 +39,71 @@
 .chip {
   position: absolute; padding: 8px 14px; border-radius: 999px;
   background: var(--surface); color: var(--ink); border: 1px solid var(--line);
-  font-size: 13px; font-weight: 600; white-space: nowrap; box-shadow: var(--shadow);
+  font: 600 13px/1.4 var(--font-body); white-space: nowrap; box-shadow: var(--shadow);
+  cursor: help;
+  transform: translateZ(var(--z));
+  transition: transform .2s ease, border-color .2s ease;
 }
 .chip strong { color: var(--accent); }
-/* Up to three badges, placed at different depths */
-.chip.c1 { top: 8%;  left: -14%; transform: translateZ(90px); }
-.chip.c2 { top: 46%; right: -12%; transform: translateZ(130px); }
-.chip.c3 { bottom: 7%; left: -8%; transform: translateZ(70px); }
+.chip:hover, .chip:focus-visible, .chip.open {
+  transform: translateZ(calc(var(--z) + 60px));
+  border-color: var(--accent);
+  outline: none;
+}
+/* Up to four badges, placed around the portrait at different depths */
+.chip.c1 { --z: 90px;  top: 6%;     left: -14%; }
+.chip.c2 { --z: 130px; top: 30%;    right: -12%; }
+.chip.c3 { --z: 110px; top: 56%;    left: -12%; }
+.chip.c4 { --z: 70px;  bottom: 6%;  right: -8%; }
+
+/* Badge note — shows on hover, keyboard focus, or tap (.open) */
+.tip {
+  position: absolute; bottom: calc(100% + 10px); left: 0;
+  width: max-content; max-width: min(240px, 70vw);
+  padding: 10px 12px; border-radius: 12px;
+  background: var(--ink); color: var(--bg); box-shadow: var(--shadow);
+  font-weight: 400; font-size: 13px; line-height: 1.45; text-align: left; white-space: normal;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  pointer-events: none;
+}
+.tip strong { color: inherit; }
+.chip.c2 .tip, .chip.c4 .tip { left: auto; right: 0; }
+.chip:hover .tip, .chip:focus-visible .tip, .chip.open .tip { opacity: 1; visibility: visible; transform: none; }
 
 /* ---------- About ---------- */
 .about { max-width: 680px; font-size: clamp(19px, 2.6vw, 22px); line-height: 1.55; }
 .about p { margin: 0 0 14px; }
 .about strong { font-weight: 600; color: var(--accent); }
+
+/* ---------- Video (3D screen) ---------- */
+.video { max-width: 820px; }
+.screen {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  border-radius: var(--radius); border: 10px solid var(--surface);
+  background: #0b0b0a; box-shadow: var(--shadow);
+  transform: perspective(1400px) rotateX(7deg);
+  transform-origin: 50% 100%;
+  transition: transform .5s var(--ease-out);
+}
+.screen:hover { transform: perspective(1400px) rotateX(0deg); }
+.screen iframe, .screen video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-empty {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px;
+  color: #d8d3cb; text-align: center; padding: 20px;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 106, 61, .18), transparent 60%);
+}
+.video-empty p { margin: 0; font-size: 17px; }
+.video-empty strong { color: #ff6a3d; font-weight: 600; }
+.video-empty .play {
+  width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-ink);
+  box-shadow: 0 5px 0 0 var(--extrude), 0 16px 30px -8px rgba(0, 0, 0, .5);
+}
+.video-empty .play svg { width: 28px; height: 28px; margin-left: 4px; }
+.video-note { color: var(--muted); font-size: 15px; margin: 18px 0 0; }
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 16px; }
 
 /* ---------- Timeline (3D steps) ---------- */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
@@ -108,9 +161,9 @@
 @media (max-width: 820px) {
   .hero { grid-template-columns: 1fr; gap: 56px; padding-top: 48px; }
   .hero .scene { max-width: 340px; margin: 0 auto; width: 82%; }
-  .chip.c1 { left: -10%; }
-  .chip.c2 { right: -10%; }
-  .chip.c3 { left: -6%; }
+  .chip.c1, .chip.c3 { left: -3%; }
+  .chip.c2, .chip.c4 { right: -5%; }
+  .screen { border-width: 6px; }
   .steps li { grid-template-columns: 64px 1fr; padding: 16px 18px; margin-left: 0; }
   .carousel { height: 400px; }
   .ring { width: 220px; height: 300px; }
@@ -118,5 +171,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .steps .current .year::after { animation: none; }
-  .slide { transition: none; }
+  .slide, .chip, .tip, .screen { transition: none; }
+  html { scroll-behavior: auto; }
 }

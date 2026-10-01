@@ -42,7 +42,7 @@ img { display: block; max-width: 100%; }
 }
 h1 {
   font-family: var(--font-display); font-weight: 900;
-  font-size: clamp(52px, 10vw, 104px); line-height: .92; letter-spacing: -.02em;
+  font-size: clamp(52px, 10vw, 104px); line-height: 1.02; letter-spacing: -.02em;
   margin: 14px 0 20px;
   /* extruded 3D type */
   text-shadow:
@@ -50,6 +50,7 @@ h1 {
     4px 4px 0 var(--extrude), 5px 5px 0 var(--extrude), 6px 6px 0 var(--extrude),
     10px 14px 24px rgba(0, 0, 0, .18);
 }
+h1 .us { color: var(--accent); }
 h2 {
   font-family: var(--font-display); font-weight: 700;
   font-size: clamp(28px, 5vw, 38px); margin: 0; letter-spacing: -.01em;

@@ -13,13 +13,24 @@ function linkButton(link) {
     return `<span class="btn ghost" title="Coming soon">${icon}${esc(link.label)}</span>`;
   }
   const cls = link.primary ? 'btn primary' : 'btn';
-  return `<a class="${cls}" href="${esc(link.url)}" target="_blank" rel="noopener">${icon}${esc(link.label)}</a>`;
+  return `<a class="${cls}" href="${esc(link.url)}"${external(link.url)}>${icon}${esc(link.label)}</a>`;
+}
+
+// In-page anchors ('#id') stay in the tab; everything else opens a new one.
+const external = (url) => (url.startsWith('#') ? '' : ' target="_blank" rel="noopener"');
+
+function badge(b, i) {
+  const tip = b.note ? `<span class="tip" role="tooltip" id="tip-${i}">${rich(b.note)}</span>` : '';
+  const describedBy = b.note ? ` aria-describedby="tip-${i}"` : '';
+  return `<button type="button" class="chip c${i + 1}"${describedBy}>${rich(b.label)}${tip}</button>`;
 }
 
 function hero(site) {
   const p = site.portrait;
-  const title = site.brand.split(' ').map(esc).join('<br>');
-  const badges = (p.badges || []).slice(0, 3).map((b, i) => `<div class="chip c${i + 1}">${rich(b)}</div>`).join('');
+  // Break the brand onto lines after each "_" or space, keeping underscores visible
+  const title = site.brand.split(/(?<=_)|\s+/).filter(Boolean).map(esc).join('<br>')
+    .replace(/_/g, '<span class="us">_</span>');
+  const badges = (p.badges || []).slice(0, 4).map(badge).join('');
   return `
     <header class="hero">
       <div>
@@ -41,6 +52,24 @@ function hero(site) {
 const renderers = {
   about: (s) => `
     <div class="about">${s.paragraphs.map((t) => `<p>${rich(t)}</p>`).join('')}</div>`,
+
+  video: (s) => {
+    let media;
+    if (s.youtubeId) {
+      media = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(s.youtubeId)}" title="${esc(s.title)}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+    } else if (s.src) {
+      const poster = s.poster ? ` poster="${esc(s.poster)}"` : '';
+      media = `<video controls playsinline preload="metadata"${poster}><source src="${esc(s.src)}"></video>`;
+    } else {
+      media = `<div class="video-empty"><span class="play">${icons.play}</span><p>${rich(s.placeholder || 'Coming soon.')}</p></div>`;
+    }
+    const note = s.note ? `<p class="video-note">${rich(s.note)}</p>` : '';
+    return `
+    <div class="video reveal-wrap">
+      <div class="reveal"><div class="screen">${media}</div>${note}</div>
+    </div>`;
+  },
 
   timeline: (s) => `
     <ol class="steps reveal-wrap">
@@ -87,8 +116,9 @@ function section(s, i) {
     return '';
   }
   const num = String(i + 1).padStart(2, '0');
+  const id = s.id ? ` id="${esc(s.id)}"` : '';
   return `
-    <section>
+    <section${id}>
       <div class="sec-head"><span class="num">${num}</span><h2>${esc(s.title)}</h2></div>
       ${render(s)}
     </section>`;
@@ -96,13 +126,13 @@ function section(s, i) {
 
 function footer(site) {
   const links = site.links
-    .filter((l) => l.url)
-    .map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.footer || l.label)} ↗</a>`)
+    .filter((l) => l.url && l.footer)
+    .map((l) => `<a href="${esc(l.url)}"${external(l.url)}>${esc(l.footer)} ↗</a>`)
     .join('');
   return `
     <footer>
       <div class="row">
-        <span>© ${new Date().getFullYear()} ${esc(site.brand)} · ${esc(site.owner)}</span>
+        <span>© ${new Date().getFullYear()} ${esc(site.brand)}</span>
         <span class="links">${links}</span>
       </div>
     </footer>`;
