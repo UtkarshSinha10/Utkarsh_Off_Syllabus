@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off Syllabus</title>
+<meta name="description" content="Off Syllabus — the stuff nobody puts in the syllabus. Careers, UPSC, system design and the uncomfortable questions, by Utkarsh.">
+<meta property="og:title" content="Off Syllabus">
+<meta property="og:description" content="The stuff nobody puts in the syllabus.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ee;
+    --surface: #ffffff;
+    --ink: #1b1a17;
+    --muted: #6b6760;
+    --line: #e2ddd4;
+    --accent: #d9481c;
+    --accent-ink: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141311;
+      --surface: #1d1c19;
+      --ink: #f1ede6;
+      --muted: #a29d94;
+      --line: #2e2c28;
+      --accent: #ff6a3d;
+      --accent-ink: #141311;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  header { padding: 72px 0 40px; }
+  .eyebrow {
+    font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 700;
+    font-size: clamp(44px, 10vw, 84px); line-height: .98; letter-spacing: -.02em;
+    margin: 12px 0 18px;
+  }
+  .tagline { font-size: clamp(19px, 3.4vw, 23px); color: var(--muted); margin: 0 0 32px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 20px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 15px; border: 1px solid var(--line);
+    transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.ghost { background: var(--surface); color: var(--muted); cursor: default; }
+  .btn.ghost:hover { transform: none; }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  section { padding: 40px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-family: Fraunces, Georgia, serif; font-weight: 500;
+    font-size: 28px; margin: 0 0 20px; letter-spacing: -.01em;
+  }
+  .about p { margin: 0 0 14px; }
+  .about strong { font-weight: 600; }
+
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li {
+    display: grid; grid-template-columns: 72px 1fr; gap: 16px;
+    padding: 14px 0; border-bottom: 1px dashed var(--line);
+  }
+  .timeline li:last-child { border-bottom: 0; }
+  .year { font-family: Fraunces, Georgia, serif; font-weight: 700; color: var(--accent); }
+  .timeline .now .year::after { content: " •"; animation: blink 1.6s infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 20px;
+  }
+  .card .icon { font-size: 26px; line-height: 1; }
+  .card h3 { margin: 12px 0 6px; font-size: 17px; font-weight: 600; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  footer { padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .timeline .now .year::after { transition: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">A channel by Utkarsh</div>
+      <h1>Off Syllabus</h1>
+      <p class="tagline">The stuff nobody puts in the syllabus.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://www.youtube.com/channel/UCdNdQLkunF5r1ROqwlkOKAQ" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+          Watch on YouTube
+        </a>
+        <span class="btn ghost" title="Coming soon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          @utkarsh_off_syllabus · soon
+        </span>
+      </div>
+    </header>
+
+    <section class="about">
+      <h2>About</h2>
+      <p><strong>Engineer by choice.</strong> I left a good job to prepare for UPSC, spent 1.5 years at it, and came back to tech.</p>
+      <p>This channel is everything I learned on both sides of that gap.</p>
+    </section>
+
+    <section>
+      <h2>The route so far</h2>
+      <ol class="timeline">
+        <li><span class="year">2021</span><span>NIT Graduate</span></li>
+        <li><span class="year">2022</span><span>SDE@1.0</span></li>
+        <li><span class="year">2024</span><span>UPSC hustle, no safety net</span></li>
+        <li><span class="year">2025</span><span>SDE@2.0 with a very different view of risk, time and ambition</span></li>
+        <li class="now"><span class="year">Now</span><span>Building in public, and talking about the parts of this career nobody prepares you for</span></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>What's here</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🎙️</div>
+          <h3>Conversations</h3>
+          <p>Long-form talks with people who took strange routes.</p>
+        </div>
+        <div class="card">
+          <div class="icon">⚙️</div>
+          <h3>System Design &amp; DSA</h3>
+          <p>Interview prep, explained the way I wish someone had explained it to me.</p>
+        </div>
+        <div class="card">
+          <div class="icon">💭</div>
+          <h3>Off Script</h3>
+          <p>Stories, decisions, and the uncomfortable questions about careers and lives in India.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="row">
+        <span>© <span id="y">2026</span> Off Syllabus · Utkarsh</span>
+        <a href="https://www.youtube.com/channel/UCdNdQLkunF5r1ROqwlkOKAQ" target="_blank" rel="noopener">YouTube ↗</a>
+      </div>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
