@@ -19,7 +19,7 @@ function linkButton(link) {
 function hero(site) {
   const p = site.portrait;
   const title = site.brand.split(' ').map(esc).join('<br>');
-  const badges = (p.badges || []).slice(0, 3).map((b) => `<div class="chip">${rich(b)}</div>`).join('');
+  const badges = (p.badges || []).slice(0, 3).map((b, i) => `<div class="chip c${i + 1}">${rich(b)}</div>`).join('');
   return `
     <header class="hero">
       <div>
