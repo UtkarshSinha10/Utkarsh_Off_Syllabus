@@ -7,18 +7,26 @@ Plain HTML/CSS/JS, no build step. Push to `main` and GitHub Pages redeploys in a
 ## Layout
 
 ```
-index.html              Thin shell: <head>, stylesheets, backdrop, #app mount point
-js/content.js           ← ALL text, links, badges, timeline, cards and photos
-js/render.js            Turns content.js into markup (one renderer per section type)
+index.html              Home page shell: <head>, stylesheets, backdrop, #app mount point
+writing.html            Writing page shell (contents + single essay)
+essays/index.js         ← The list of essays (title, date, summary, tags, draft)
+essays/<slug>.md        ← One Markdown file per essay
+js/content.js           ← ALL home-page text, nav, links, badges, timeline, cards and photos
+js/render.js            Turns content.js into home-page markup (one renderer per section type)
+js/layout.js            Shared nav bar and footer
+js/essays.js            Essay list helpers + table-of-contents markup
+js/writing.js           Entry point for writing.html (contents, essay view, outline)
+js/util.js              Escaping, slugs, date formatting
 js/icons.js             Inline SVG icons (youtube, instagram, play, x, linkedin, github)
-js/main.js              Entry point: render, then attach effects
+js/main.js              Entry point for index.html: render, then attach effects
 js/effects/tilt.js      Mouse 3D tilt for [data-tilt]
 js/effects/reveal.js    Fold-in-on-scroll for .reveal
 js/effects/carousel.js  3D coverflow for [data-carousel]
 js/effects/tooltips.js  Tap-to-open badge notes on touch screens
 css/tokens.css          ← Colours, fonts, radius, width (light + dark)
 css/base.css            Reset, layout, typography, 3D backdrop, shared 3D primitives
-css/components.css      Buttons, hero, badges, about, video, timeline, cards, gallery
+css/components.css      Nav, buttons, hero, badges, about, video, timeline, cards, essay list, gallery
+css/writing.css         Writing page only: essay layout, prose, outline, pager
 assets/img/             Images
 assets/video/           Self-hosted video resume (optional, see below)
 ```
@@ -37,6 +45,24 @@ assets/video/           Self-hosted video resume (optional, see below)
 | Change colours or fonts | `css/tokens.css` (font files are loaded in `index.html`) |
 | Add a new kind of section | Write a renderer in `js/render.js`, register it in `renderers`, style it in `css/components.css` |
 
+## Publishing an essay
+
+1. Create `essays/<slug>.md`, e.g. `essays/why-i-left-for-upsc.md`. Plain Markdown;
+   don't repeat the title inside. `##` / `###` headings become the "On this page" outline.
+2. Add an entry at the top of the list in `essays/index.js`:
+   ```js
+   { slug: 'why-i-left-for-upsc', title: 'Why I left for UPSC', date: '2026-10-05',
+     summary: 'One line for the table of contents.', tags: ['career', 'upsc'] },
+   ```
+3. Preview locally (see below) → open http://localhost:8765/writing.html
+4. Commit and push.
+
+Add `draft: true` to an entry to see it in your local preview while keeping it hidden on the
+live site. `essays/markdown-guide.md` is a draft example with every formatting option.
+
+Each essay has its own link: `writing.html#/<slug>`. Headings have links too
+(`writing.html#/<slug>/<heading-id>`), so you can share a specific section.
+
 ## Adding the video resume
 
 In `js/content.js`, find the `video` section and fill in **one** of:
@@ -52,8 +78,8 @@ Use `**text**` in content strings to highlight it in the accent colour.
 ## Cache busting
 
 GitHub Pages lets browsers cache files for ~10 minutes. After changing CSS or JS, bump the
-`?v=` number on the `css/` and `js/main.js` links in `index.html`. Modules imported by
-`main.js` (including `content.js`) aren't versioned, so returning visitors may see the old
+`?v=` number on the `css/` and `js/` links in **both** `index.html` and `writing.html`.
+Modules imported by those scripts (including `content.js` and `essays/index.js`) aren't versioned, so returning visitors may see the old
 content for up to ~10 minutes — a hard refresh (Ctrl+Shift+R) shows it immediately.
 
 ## Preview locally

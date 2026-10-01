@@ -4,7 +4,8 @@
 //
 // Formatting: wrap text in **double asterisks** to highlight it.
 // Sections render in the order listed; reorder, remove or duplicate
-// them freely. Available types: about, video, timeline, cards, gallery.
+// them freely. Available types: about, video, timeline, cards, writing, gallery.
+// Essays are NOT written here — see essays/index.js.
 // ─────────────────────────────────────────────────────────────
 
 const YOUTUBE = 'https://www.youtube.com/channel/UCdNdQLkunF5r1ROqwlkOKAQ';
@@ -13,6 +14,22 @@ export const site = {
   brand: 'Utkarsh_Off_Syllabus',    // split onto lines after each "_" or space in the hero
   eyebrow: 'The YouTube channel',
   tagline: 'The stuff nobody puts in the syllabus.',
+
+  // Top navigation on every page. `id` marks which page is active.
+  nav: [
+    { label: 'Home', href: 'index.html', id: 'home' },
+    { label: 'Writing', href: 'writing.html', id: 'writing' },
+    { label: 'Video resume', href: 'index.html#video-resume' },
+    { label: 'YouTube', href: YOUTUBE },
+  ],
+
+  // The Writing page (writing.html). Essays themselves live in essays/.
+  writing: {
+    title: 'Writing',
+    eyebrow: 'Thoughts · Essays · Perspectives',
+    intro: 'Longer thoughts on careers, UPSC, tech, and the decisions nobody prepares you for.',
+    empty: 'First essay coming soon.',
+  },
 
   // Hero buttons. url: null shows a "coming soon" pill; '#id' scrolls to a section.
   // icon: 'youtube' | 'instagram' | 'play' | 'x' | 'linkedin' | 'github' (see js/icons.js)
@@ -76,6 +93,13 @@ export const site = {
         { icon: '⚙️', title: 'System Design & DSA', text: 'Interview prep, explained the way I wish someone had explained it to me.' },
         { icon: '💭', title: 'Off Script', text: 'Stories, decisions, and the uncomfortable questions about careers and lives in India.' },
       ],
+    },
+    {
+      type: 'writing',                  // latest essays from essays/index.js
+      title: 'Latest writing',
+      limit: 3,
+      cta: 'All writing',
+      empty: 'First essay coming soon.',
     },
     {
       type: 'gallery',

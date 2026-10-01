@@ -1,12 +1,13 @@
 /* Reset, page layout, typography, 3D backdrop and shared section chrome. */
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+/* `clip` (not `hidden`) so sticky nav/outline keep working */
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
   font: 400 17px/1.6 var(--font-body);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
@@ -50,7 +51,6 @@ h1 {
     4px 4px 0 var(--extrude), 5px 5px 0 var(--extrude), 6px 6px 0 var(--extrude),
     10px 14px 24px rgba(0, 0, 0, .18);
 }
-h1 .us { color: var(--accent); }
 h2 {
   font-family: var(--font-display); font-weight: 700;
   font-size: clamp(28px, 5vw, 38px); margin: 0; letter-spacing: -.01em;

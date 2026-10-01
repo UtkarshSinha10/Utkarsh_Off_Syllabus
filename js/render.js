@@ -1,11 +1,9 @@
 // Turns the data in content.js into page markup.
 // To add a new section type: write a renderer below and register it in `renderers`.
 import { icons } from './icons.js';
-
-const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
-// Escaped text with **bold** support
-const rich = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+import { esc, rich, external } from './util.js';
+import { renderNav, renderFooter } from './layout.js';
+import { visibleEssays, essayList } from './essays.js';
 
 function linkButton(link) {
   const icon = icons[link.icon] || '';
@@ -15,9 +13,6 @@ function linkButton(link) {
   const cls = link.primary ? 'btn primary' : 'btn';
   return `<a class="${cls}" href="${esc(link.url)}"${external(link.url)}>${icon}${esc(link.label)}</a>`;
 }
-
-// In-page anchors ('#id') stay in the tab; everything else opens a new one.
-const external = (url) => (url.startsWith('#') ? '' : ' target="_blank" rel="noopener"');
 
 function badge(b, i) {
   const tip = b.note ? `<span class="tip" role="tooltip" id="tip-${i}">${rich(b.note)}</span>` : '';
@@ -107,6 +102,14 @@ const renderers = {
         <button type="button" data-next aria-label="Next photo">→</button>
       </div>
     </div>`,
+
+  // Latest essays from essays/index.js
+  writing: (s) => {
+    const list = visibleEssays().slice(0, s.limit ?? 3);
+    return `
+    ${essayList(list, { empty: s.empty })}
+    <p class="more-link"><a class="btn" href="writing.html">${esc(s.cta || 'All writing')} →</a></p>`;
+  },
 };
 
 function section(s, i) {
@@ -124,20 +127,6 @@ function section(s, i) {
     </section>`;
 }
 
-function footer(site) {
-  const links = site.links
-    .filter((l) => l.url && l.footer)
-    .map((l) => `<a href="${esc(l.url)}"${external(l.url)}>${esc(l.footer)} ↗</a>`)
-    .join('');
-  return `
-    <footer>
-      <div class="row">
-        <span>© ${new Date().getFullYear()} ${esc(site.brand)}</span>
-        <span class="links">${links}</span>
-      </div>
-    </footer>`;
-}
-
 export function renderPage(root, site) {
-  root.innerHTML = hero(site) + site.sections.map(section).join('') + footer(site);
+  root.innerHTML = renderNav(site, 'home') + hero(site) + site.sections.map(section).join('') + renderFooter(site);
 }
