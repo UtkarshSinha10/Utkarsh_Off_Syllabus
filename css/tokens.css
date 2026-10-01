@@ -1,0 +1,36 @@
+/* Design tokens — change colours, fonts and depth here; everything else reads from these. */
+:root {
+  --font-display: Fraunces, Georgia, serif;
+  --font-body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --ink: #1b1a17;
+  --muted: #6b6760;
+  --line: #e2ddd4;
+  --accent: #d9481c;
+  --accent-ink: #ffffff;
+  --grid: rgba(217, 72, 28, .22);
+  --extrude: #e9b9a5;
+  --shadow: 0 30px 60px -20px rgba(40, 25, 10, .35), 0 12px 24px -12px rgba(40, 25, 10, .2);
+
+  --radius: 20px;
+  --max-width: 1040px;
+  --gutter: 20px;
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12110f;
+    --surface: #1d1c19;
+    --ink: #f1ede6;
+    --muted: #a29d94;
+    --line: #2e2c28;
+    --accent: #ff6a3d;
+    --accent-ink: #12110f;
+    --grid: rgba(255, 106, 61, .18);
+    --extrude: #5a2a19;
+    --shadow: 0 30px 60px -20px rgba(0, 0, 0, .7), 0 12px 24px -12px rgba(0, 0, 0, .5);
+  }
+}
