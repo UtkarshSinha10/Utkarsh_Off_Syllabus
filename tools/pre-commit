@@ -1,0 +1,10 @@
+#!/bin/sh
+# Stamps a fresh ?v= cache-busting number into the HTML pages on every commit,
+# so visitors get the new CSS/JS on a normal refresh.
+# Install once:  cp tools/pre-commit .git/hooks/pre-commit
+V=$(date +%Y%m%d%H%M%S)
+for f in index.html writing.html; do
+  [ -f "$f" ] || continue
+  sed -i -E "s/\?v=[0-9]+/?v=$V/g" "$f"
+  git add "$f"
+done

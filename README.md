@@ -77,10 +77,22 @@ Use `**text**` in content strings to highlight it in the accent colour.
 
 ## Cache busting
 
-GitHub Pages lets browsers cache files for ~10 minutes. After changing CSS or JS, bump the
-`?v=` number on the `css/` and `js/` links in **both** `index.html` and `writing.html`.
-Modules imported by those scripts (including `content.js` and `essays/index.js`) aren't versioned, so returning visitors may see the old
-content for up to ~10 minutes — a hard refresh (Ctrl+Shift+R) shows it immediately.
+GitHub Pages lets browsers cache files for ~10 minutes. To make a normal refresh pick up
+changes, every CSS/JS URL carries a `?v=` number:
+
+- CSS and the entry scripts use it directly in `index.html` / `writing.html`.
+- Every other JS module is versioned through the `<script type="importmap">` block in both
+  HTML files. **If you add a new JS file, add a line for it to both import maps.**
+- Essay `.md` files are always re-checked, so they don't need a version.
+
+The number is bumped automatically on every commit by `tools/pre-commit`. Install it once
+per clone:
+
+```bash
+cp tools/pre-commit .git/hooks/pre-commit
+```
+
+The ↻ button in the nav re-downloads everything the page uses, as a fallback.
 
 ## Preview locally
 

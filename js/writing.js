@@ -3,7 +3,7 @@
 //   writing.html#/<slug>         → full essay
 //   writing.html#/<slug>/<id>    → full essay, scrolled to a heading
 import { site } from './content.js';
-import { renderNav, renderFooter } from './layout.js';
+import { renderNav, renderFooter, initRefresh } from './layout.js';
 import { visibleEssays, essayList, essayHref, tagList } from './essays.js';
 import { esc, slugify, formatDate } from './util.js';
 import { initReveal } from './effects/reveal.js';
@@ -15,6 +15,7 @@ const w = site.writing;
 const root = document.getElementById('app');
 root.innerHTML = renderNav(site, 'writing') + '<div id="view"></div>' + renderFooter(site);
 const view = document.getElementById('view');
+initRefresh();
 
 let shownSlug = null;   // essay currently on screen
 let renderToken = 0;    // guards against out-of-order async loads
@@ -122,7 +123,7 @@ async function showEssay(slug, heading) {
   let md;
   let marked;
   try {
-    const [res, mod] = await Promise.all([fetch(`essays/${encodeURIComponent(slug)}.md`), import(MARKED)]);
+    const [res, mod] = await Promise.all([fetch(`essays/${encodeURIComponent(slug)}.md`, { cache: 'no-cache' }), import(MARKED)]);
     if (!res.ok) throw new Error(`essays/${slug}.md returned ${res.status}`);
     md = await res.text();
     marked = mod.marked;

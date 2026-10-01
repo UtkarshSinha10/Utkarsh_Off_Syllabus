@@ -5,13 +5,15 @@ import { esc, rich, external } from './util.js';
 import { renderNav, renderFooter } from './layout.js';
 import { visibleEssays, essayList } from './essays.js';
 
+// Icon-only hero button; the label becomes the tooltip and accessible name.
 function linkButton(link) {
-  const icon = icons[link.icon] || '';
+  const icon = icons[link.icon] || esc(link.label);
+  const label = esc(link.label);
   if (!link.url) {
-    return `<span class="btn ghost" title="Coming soon">${icon}${esc(link.label)}</span>`;
+    return `<span class="btn icon-btn ghost" role="img" aria-label="${label}" title="${label}">${icon}</span>`;
   }
-  const cls = link.primary ? 'btn primary' : 'btn';
-  return `<a class="${cls}" href="${esc(link.url)}"${external(link.url)}>${icon}${esc(link.label)}</a>`;
+  const cls = link.primary ? 'btn icon-btn primary' : 'btn icon-btn';
+  return `<a class="${cls}" href="${esc(link.url)}"${external(link.url)} aria-label="${label}" title="${label}">${icon}</a>`;
 }
 
 function badge(b, i) {

@@ -11,11 +11,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css?v=5">
-<link rel="stylesheet" href="css/base.css?v=5">
-<link rel="stylesheet" href="css/components.css?v=5">
-<link rel="stylesheet" href="css/writing.css?v=5">
-<script type="module" src="js/writing.js?v=5"></script>
+<link rel="stylesheet" href="css/tokens.css?v=20261001140530">
+<link rel="stylesheet" href="css/base.css?v=20261001140530">
+<link rel="stylesheet" href="css/components.css?v=20261001140530">
+<link rel="stylesheet" href="css/writing.css?v=20261001140530">
+<!-- Versioned module URLs so a normal refresh picks up new code. The ?v= number is bumped on every commit by tools/pre-commit. Add new JS files here. -->
+<script type="importmap">
+{ "imports": {
+    "./js/content.js": "./js/content.js?v=20261001140530",
+    "./js/render.js": "./js/render.js?v=20261001140530",
+    "./js/icons.js": "./js/icons.js?v=20261001140530",
+    "./js/util.js": "./js/util.js?v=20261001140530",
+    "./js/layout.js": "./js/layout.js?v=20261001140530",
+    "./js/essays.js": "./js/essays.js?v=20261001140530",
+    "./js/effects/tilt.js": "./js/effects/tilt.js?v=20261001140530",
+    "./js/effects/reveal.js": "./js/effects/reveal.js?v=20261001140530",
+    "./js/effects/carousel.js": "./js/effects/carousel.js?v=20261001140530",
+    "./js/effects/tooltips.js": "./js/effects/tooltips.js?v=20261001140530",
+    "./essays/index.js": "./essays/index.js?v=20261001140530"
+} }
+</script>
+<script type="module" src="js/writing.js?v=20261001140530"></script>
 </head>
 <body>
   <div class="stage quiet" aria-hidden="true">

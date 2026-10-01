@@ -20,7 +20,7 @@ export const site = {
     { label: 'Home', href: 'index.html', id: 'home' },
     { label: 'Writing', href: 'writing.html', id: 'writing' },
     { label: 'Video resume', href: 'index.html#video-resume' },
-    { label: 'YouTube', href: YOUTUBE },
+    { label: 'YouTube', href: YOUTUBE, icon: 'youtube' },   // `icon` = show the icon only
   ],
 
   // The Writing page (writing.html). Essays themselves live in essays/.
@@ -31,13 +31,14 @@ export const site = {
     empty: 'First essay coming soon.',
   },
 
-  // Hero buttons. url: null shows a "coming soon" pill; '#id' scrolls to a section.
-  // icon: 'youtube' | 'instagram' | 'play' | 'x' | 'linkedin' | 'github' (see js/icons.js)
+  // Hero buttons — shown as icons only; `label` is the hover tooltip and screen-reader text.
+  // url: null shows a dimmed "coming soon" icon; '#id' scrolls to a section.
+  // icon: 'youtube' | 'instagram' | 'video' | 'play' | 'x' | 'linkedin' | 'github' (see js/icons.js)
   // footer: text for the footer link (omit to keep it out of the footer).
   links: [
     { label: 'Watch on YouTube', url: YOUTUBE, icon: 'youtube', primary: true, footer: 'YouTube' },
-    { label: 'Video resume', url: '#video-resume', icon: 'play' },
-    { label: '@utkarsh_off_syllabus · soon', url: null, icon: 'instagram', footer: 'Instagram' },
+    { label: 'Video resume', url: '#video-resume', icon: 'video' },
+    { label: 'Instagram @utkarsh_off_syllabus — coming soon', url: null, icon: 'instagram', footer: 'Instagram' },
   ],
 
   // Hero portrait. Up to 4 floating badges; `note` shows on hover / tap.
